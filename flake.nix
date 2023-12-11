@@ -24,8 +24,9 @@
         stdenv.mkDerivation {
           inherit pname version;
           src = ./ags-config;
+
           buildCommand = ''
-            mkdir -p $out && ls -altr && cp -r ${src}/* $out
+            mkdir -p $out && cp -r ${src}/* $out
           '';
         };
   in {

@@ -26,8 +26,8 @@
           src = ./ags-config;
           installPhase = ''
             mkdir -p $out
-            cp -r ${src}/* $out
           '';
+          #cp -r ${src}/* $out
         };
   in {
     overlays.default = final: prev: {

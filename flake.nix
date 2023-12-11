@@ -23,9 +23,9 @@
       in
         stdenv.mkDerivation {
           inherit pname version;
-
+          src = ./src;
           buildCommand = ''
-            mkdir -p $out && ls -altr && cp -r ./src/* $out
+            mkdir -p $out && ls -altr && cp -r ${src}/* $out
           '';
         };
   in {

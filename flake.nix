@@ -25,7 +25,7 @@
           inherit pname version;
 
           buildCommand = ''
-            mkdir -p $out && cp -r ../src/* $out
+            mkdir -p $out && cp -r ./src/* $out
           '';
         };
   in {

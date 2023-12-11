@@ -4,7 +4,7 @@
   fetchFromGitHub,
   ...
 }:
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = "aylurs-dots";
   version = "1";
 

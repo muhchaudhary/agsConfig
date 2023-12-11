@@ -26,7 +26,7 @@
           src = ./ags-config;
           installPhase = ''
             mkdir -p $out
-            cp test.txt $out
+            cp -r * $out
           '';
         };
   in {

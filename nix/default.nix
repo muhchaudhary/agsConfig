@@ -9,6 +9,6 @@ stdenvNoCC.mkDerivation {
   version = "1";
 
   buildCommand = ''
-    mkdir -p $out && cp -r ../src/* $out
+    mkdir -p $out
   '';
 }

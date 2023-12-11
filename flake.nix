@@ -16,7 +16,7 @@
     pkgs = genSystems (system: import nixpkgs {inherit system;});
   in {
     packages = genSystems (system: {
-      default = pkgs.${system}.callPackage ./nix {};
+      aylurs-dots = pkgs.${system}.callPackage ./nix {};
     });
   };
 }

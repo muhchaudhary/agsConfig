@@ -6,17 +6,44 @@
   };
 
   outputs = {
-    nixpkgs,
     self,
+    nixpkgs,
   }: let
-    genSystems = nixpkgs.lib.genAttrs [
-      "aarch64-linux"
-      "x86_64-linux"
-    ];
-    pkgs = genSystems (system: import nixpkgs {inherit system;});
+    pkgs = import nixpkgs {
+      system = "x86_64-linux";
+      overlays = [self.overlays.default];
+    };
+
+    mkAgsDots = {
+      pname,
+      version,
+    }:
+      with pkgs; let
+        libs = [stdenv.cc.cc.lib];
+      in
+        stdenv.mkDerivation {
+          inherit pname version;
+
+          buildCommand = ''
+            mkdir -p $out && cp -r ../src/* $out
+          '';
+        };
   in {
-    packages = genSystems (system: {
-      aylurs-dots = pkgs.${system}.callPackage ./nix {};
-    });
+    overlays.default = final: prev: {
+      aylurs-dots_1 = mkAgsDots {
+        pname = "aylurs-dots";
+        version = "1";
+      };
+    };
+
+    lib.mkAgsDots = mkAgsDots;
+
+    packages.x86_64-linux = rec {
+      inherit
+        (pkgs)
+        aylurs-dots_1
+        ;
+      default = aylurs-dots_1;
+    };
   };
 }

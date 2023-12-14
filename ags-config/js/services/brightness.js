@@ -6,6 +6,8 @@ import { dependencies } from '../utils.js';
 
 const KBD = options.brightnessctlKBD;
 
+const screen_avail = GLib.file_test('/sys/class/backlight/intel_backlight/brightness', GLib.FileTest.EXISTS);
+
 class Brightness extends Service {
     static {
         Service.register(this, {}, {
@@ -18,18 +20,12 @@ class Brightness extends Service {
     #kbd = 0;
     #kbdMax = 2;
     #screen = 0;
-    #screen_available = false;
+    #screen_available = screen_avail;
 
     get kbd() { return this.#kbd; }
     get screen() { return this.#screen; }
-    //get screen_available() { return this.#screen_available; }
-    get screen_available( ) {
-        this.#screen_available = false;
-        if (GLib.file_test('/sys/class/backlight/intel_backlight/brightness', GLib.FileTest.EXISTS))
-            this.#screen_available = true;
-        return this.#screen_available;
-    }
-
+    get screen_available() { return this.#screen_available; }
+    
     set kbd(value) {
         if (!dependencies(['brightnessctl']))
             return;

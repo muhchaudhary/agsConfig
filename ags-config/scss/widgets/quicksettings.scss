@@ -2,6 +2,11 @@ window#quicksettings .window-content {
     @include floating-widget;
     @include spacing;
 
+    scrolledwindow {
+        @include scrollable;
+        min-height: $applauncher-height;
+    }
+
     .avatar {
         @include widget;
         opacity: 0.9;

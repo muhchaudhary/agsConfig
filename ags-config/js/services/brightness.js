@@ -27,7 +27,7 @@ class Brightness extends Service {
         this.#screen_available = false;
         if (GLib.file_test('/sys/class/backlight/intel_backlight/brightness', GLib.FileTest.EXISTS))
             this.#screen_available = true;
-        return this.#screen_available
+        return this.#screen_available;
     }
 
     set kbd(value) {

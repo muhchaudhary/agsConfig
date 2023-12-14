@@ -19,13 +19,13 @@ export default () => Widget.Box({
                 Widget.Box({
                     class_name: 'battery horizontal',
                     children: [
-                        Widget.Icon({ binds: [['icon', Battery, 'icon-name']] }),
-                        Widget.Label({ binds: [['label', Battery, 'percent', p => `${p}%`]] }),
+                        Widget.Icon({ binds: [['icon', Battery, 'icon-name'], ['visible', Battery, 'charging']] }),
+                        Widget.Label({ binds: [['label', Battery, 'percent', p => `${p}%`], ['visible', Battery, 'charging']] }),
                     ],
                 }),
                 Widget.Label({
                     class_name: 'uptime',
-                    binds: [['label', uptime, 'value', v => `up: ${v}`]],
+                    binds: [['label', uptime, 'value', v => `uptime: ${v}`]],
                 }),
                 Widget.Button({
                     on_clicked: openSettings,

@@ -22,6 +22,13 @@ class Brightness extends Service {
 
     get kbd() { return this.#kbd; }
     get screen() { return this.#screen; }
+    //get screen_available() { return this.#screen_available; }
+    get screen_available( ) {
+        this.#screen_available = false;
+        if (GLib.file_test('/sys/class/backlight/intel_backlight/brightness', GLib.FileTest.EXISTS))
+            this.#screen_available = true;
+        return this.#screen_available
+    }
 
     set kbd(value) {
         if (!dependencies(['brightnessctl']))
@@ -54,12 +61,6 @@ class Brightness extends Service {
                 this.changed('screen');
             })
             .catch(console.error);
-    }
-
-    set screen_available(_) {
-        this.#screen_available = false;
-        if (GLib.file_test('/sys/class/backlight/intel_backlight/brightness', GLib.FileTest.EXISTS))
-            this.#screen_available = true;
     }
 
     constructor() {

@@ -58,6 +58,7 @@ export default () => PanelButton({
         const v = options.battery.show_percentage.value;
         options.battery.show_percentage.value = !v;
     },
+    binds:[['visible', Battery, 'available']],
     content: Widget.Box({
         connections: [
             [Battery, w => {

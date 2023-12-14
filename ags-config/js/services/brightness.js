@@ -1,6 +1,7 @@
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import Service from 'resource:///com/github/Aylur/ags/service.js';
 import options from '../options.js';
+import GLib from 'gi://GLib';
 import { dependencies } from '../utils.js';
 
 const KBD = options.brightnessctlKBD;
@@ -10,12 +11,14 @@ class Brightness extends Service {
         Service.register(this, {}, {
             'screen': ['float', 'rw'],
             'kbd': ['int', 'rw'],
+            'screen_available': ['bool', 'rw'],
         });
     }
 
     #kbd = 0;
-    #kbdMax = 3;
+    #kbdMax = 2;
     #screen = 0;
+    #screen_available = false;
 
     get kbd() { return this.#kbd; }
     get screen() { return this.#screen; }
@@ -38,19 +41,25 @@ class Brightness extends Service {
     set screen(percent) {
         if (!dependencies(['brightnessctl']))
             return;
-
+        // check if backlight is present
         if (percent < 0)
             percent = 0;
 
         if (percent > 1)
             percent = 1;
 
-        Utils.execAsync(`brightnessctl s ${percent * 100}% -q`)
+        Utils.execAsync(`brightnessctl -c backlight s ${percent * 100}% -q`)
             .then(() => {
                 this.#screen = percent;
                 this.changed('screen');
             })
             .catch(console.error);
+    }
+
+    set screen_available(available) {
+        this.#screen_available = false;
+        if (GLib.file_test('/sys/class/backlight/intel_backlight', GLib.FileTest.EXISTS))
+            this.#screen_available = true;
     }
 
     constructor() {
@@ -59,7 +68,7 @@ class Brightness extends Service {
         if (dependencies(['brightnessctl'])) {
             this.#kbd = Number(Utils.exec(`brightnessctl -d ${KBD} g`));
             this.#kbdMax = Number(Utils.exec(`brightnessctl -d ${KBD} m`));
-            this.#screen = Number(Utils.exec('brightnessctl g')) / Number(Utils.exec('brightnessctl m'));
+            this.#screen = Number(Utils.exec('brightnessctl -c backlight g')) / Number(Utils.exec('brightnessctl m'));
         }
     }
 }

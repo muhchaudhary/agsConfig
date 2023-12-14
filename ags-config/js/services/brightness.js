@@ -56,9 +56,9 @@ class Brightness extends Service {
             .catch(console.error);
     }
 
-    set screen_available(available) {
+    set screen_available(_) {
         this.#screen_available = false;
-        if (GLib.file_test('/sys/class/backlight/intel_backlight', GLib.FileTest.EXISTS))
+        if (GLib.file_test('/sys/class/backlight/intel_backlight/brightness', GLib.FileTest.EXISTS))
             this.#screen_available = true;
     }
 

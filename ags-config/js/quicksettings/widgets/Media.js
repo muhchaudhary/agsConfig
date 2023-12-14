@@ -17,6 +17,7 @@ const Footer = player => Widget.CenterBox({
         }),
         Widget.Box({
             class_name: 'controls',
+            spacing: 10,
             children: [
                 mpris.ShuffleButton(player),
                 mpris.PreviousButton(player),
@@ -35,6 +36,7 @@ const Footer = player => Widget.CenterBox({
 
 /** @param {import('types/service/mpris').MprisPlayer} player */
 const TextBox = player => Widget.Box({
+    class_name: 'text-box',
     children: [
         mpris.CoverArt(player, {
             hpack: 'end',

@@ -1,4 +1,4 @@
-#sensors -jA | python -c 'import json,sys;obj=json.load(sys.stdin);print(obj["k10temp-pci-00c3"]["Tctl"]["temp1_input"])'
+#sensors k10temp-pci-00c3 -jA
 
 import json
 import subprocess

@@ -18,6 +18,7 @@ import ScreenRecord from './buttons/ScreenRecord.js';
 import BatteryBar from './buttons/BatteryBar.js';
 import SubMenu from './buttons/SubMenu.js';
 import Recorder from '../services/screenrecord.js';
+import prayerService from "../PrayerTimesService.js";
 // import * as System from './buttons/System.js';
 // import Taskbar from './buttons/Taskbar.js';
 import options from '../options.js';
@@ -32,6 +33,43 @@ SystemTray.connect('changed', () => {
  * @param {T=} service
  * @param {(self: T) => boolean=} condition
  */
+
+const PrayerTimes = () => {
+
+    let icon = Widget.Label({
+        className: 'bar-prayer-times-icon',
+        label: '',
+    })
+    let text = Widget.Label({
+        truncate: 'end',
+        xalign: 0,
+        maxWidthChars: 24,
+    })
+
+    return Widget.Box({
+        className: 'bar-prayer-times-box small-shadow panel-button',
+        children: [
+            //icon,
+            text,
+        ],
+        connections: [
+            [
+                prayerService,
+                box => {
+                    if (prayerService.nextPrayerName != '') {
+                        if (!prayerService.prayerNow) {
+                            text.label = `${prayerService.nextPrayerName} (${prayerService.nextPrayerTime})`
+                        } else {
+                            text.label = `حان الان وقت صلاة ${prayerService.prayerNow}`
+                        }
+                    } else {
+                        text.label = `غير متاحة`;
+                    }
+                }
+            ],
+        ],
+    })
+}
 const SeparatorDot = (service, condition) => {
     const visibility = self => {
         if (!options.bar.separators.value)
@@ -56,6 +94,8 @@ const Start = () => Widget.Box({
         OverviewButton(),
         SeparatorDot(),
         Workspaces(),
+        SeparatorDot(),
+        PrayerTimes(),
         SeparatorDot(),
         FocusedClient(),
         Widget.Box({ hexpand: true }),

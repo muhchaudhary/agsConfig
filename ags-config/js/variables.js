@@ -1,6 +1,8 @@
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import GLib from 'gi://GLib';
 import options from './options.js';
+import App from 'resource:///com/github/Aylur/ags/app.js';
+const tempy = App.configDir + '/js/temp/temp.py';
 
 const intval = options.systemFetchInterval;
 
@@ -49,7 +51,7 @@ export const ram = Variable(0, {
 });
 
 export const temp = Variable(0, {
-    poll: [intval, 'cat ' + options.temperature, n => {
-        return Number.parseInt(n) / 100_000;
+    poll: [intval, 'python ' + tempy, n => {
+        return Number.parseFloat(n) / 100;
     }],
 });

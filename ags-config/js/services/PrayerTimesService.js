@@ -126,11 +126,11 @@ class PrayerTimesService extends Service {
     getHoursMinutes(date) {
         const hours = date.getHours();
         const minutes = date.getMinutes();
-        // const ampm = hours >= 12 ? 'PM' : 'AM';
+        const ampm = hours >= 12 ? 'PM' : 'AM';
         const formattedHours = hours % 12 || 12; // Convert 0 to 12 for AM/PM display
         const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
 
-        const formattedTime = `${formattedHours}:${formattedMinutes}`;
+        const formattedTime = `${formattedHours}:${formattedMinutes} ${ampm}`;
 
         return formattedTime
     }

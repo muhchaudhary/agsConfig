@@ -213,23 +213,6 @@ export default {
         },
         drop_shadow: Option(true, { 'scss': 'drop-shadow' }),
         shadow: Option('rgba(0, 0, 0, .6)', { 'scss': 'shadow' }),
-        dock: {
-            icon_size: Option(56),
-            pinned_apps: Option([
-                'firefox',
-                'org.wezfurlong.wezterm',
-                'org.gnome.Nautilus',
-                'org.gnome.Calendar',
-                'obsidian',
-                'transmission-gtk',
-                'caprine',
-                'teams-for-linux',
-                'discord',
-                'spotify',
-                'com.usebottles.bottles',
-                'org.gnome.Software',
-            ], { 'scss': 'exclude' }),
-        },
     },
 
     notifications: {

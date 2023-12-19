@@ -8,7 +8,7 @@ import Brightness from './brightness.js';
 class Indicator extends Service {
     static {
         Service.register(this, {
-            'popup': ['double', 'string'],
+            'popup': ['double', 'string', 'string'],
         });
     }
 
@@ -18,15 +18,16 @@ class Indicator extends Service {
     /**
      * @param {number} value - 0 < v < 1
      * @param {string} icon
+     * @param {string} name
      */
-    popup(value, icon) {
-        this.emit('popup', value, icon);
+    popup(value, icon, name) {
+        this.emit('popup', value, icon, name);
         this.#count++;
         Utils.timeout(this.#delay, () => {
             this.#count--;
 
             if (this.#count === 0)
-                this.emit('popup', -1, icon);
+                this.emit('popup', -1, icon, name);
         });
     }
 
@@ -34,6 +35,7 @@ class Indicator extends Service {
         this.popup(
             Audio.speaker?.volume || 0,
             getAudioTypeIcon(Audio.speaker?.icon_name || ''),
+            'speaker'
         );
     }
 
@@ -41,14 +43,16 @@ class Indicator extends Service {
         // brightness is async, so lets wait a bit
         Utils.timeout(10, () => this.popup(
             Brightness.screen,
-            icons.brightness.screen));
+            icons.brightness.screen,
+            'display'));
     }
 
     kbd() {
         // brightness is async, so lets wait a bit
         Utils.timeout(10, () => this.popup(
             (Brightness.kbd * 33 + 1) / 100,
-            icons.brightness.keyboard));
+            icons.brightness.keyboard,
+            'display'));
     }
 
     connect(event = 'popup', callback) {

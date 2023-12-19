@@ -2,7 +2,7 @@ import Applauncher from './applauncher/Applauncher.js';
 import Dashboard from './dashboard/Dashboard.js';
 import Desktop from './desktop/Desktop.js';
 import Notifications from './notifications/Notifications.js';
-import OSD from './osd/OSD.js';
+import OSD from './osd-horizontal/OSD.js';
 import Overview from './overview/Overview.js';
 import PowerMenu from './powermenu/PowerMenu.js';
 import QuickSettings from './quicksettings/QuickSettings.js';

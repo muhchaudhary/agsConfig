@@ -1,10 +1,12 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js'
+import App from 'resource:///com/github/Aylur/ags/app.js';
 import prayerService from '../../services/PrayerTimesService.js'
 import PanelButton from '../PanelButton.js'
 
 export default () =>
   PanelButton({
     class_name: 'bar-prayer-times-box panel-button',
+    on_clicked: () => App.toggleWindow('prayertime'),
     content: Widget.Label({
       truncate: 'end',
       xalign: 0,

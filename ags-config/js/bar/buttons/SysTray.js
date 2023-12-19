@@ -21,11 +21,9 @@ const SysTrayItem = item => PanelButton({
             self.connect('destroy', () => item.menu?.disconnect(id));
     },
 
-    // @ts-expect-error popup_at_widget missing from types?
     on_primary_click: btn => item.menu?.popup_at_widget(
         btn, Gdk.Gravity.SOUTH, Gdk.Gravity.NORTH, null),
 
-    // @ts-expect-error popup_at_widget missing from types?
     on_secondary_click: btn => item.menu?.popup_at_widget(
         btn, Gdk.Gravity.SOUTH, Gdk.Gravity.NORTH, null),
 });

@@ -25,6 +25,7 @@ class PrayerTimesService extends Service {
         Service.register(this,
             {},
             {
+                'allPrayerTimes': ['array','r'],
                 'nextPrayerName': ['string', 'r'],
                 'nextPrayerTime': ['string', 'r'],
 
@@ -134,7 +135,26 @@ class PrayerTimesService extends Service {
 
         return formattedTime
     }
-
+    getAllPrayerTimes(json) {
+        if (Object.keys(json).length === 0 || json.code === 404) {
+            return [
+                { name: "",
+                  time: "", }
+            ]
+        }
+        let isha = this.timeToDateObj(json.data.timings.Isha);
+        let maghrib = this.timeToDateObj(json.data.timings.Maghrib);
+        let asr = this.timeToDateObj(json.data.timings.Asr);
+        let dhuhr = this.timeToDateObj(json.data.timings.Dhuhr);
+        let fajr = this.timeToDateObj(json.data.timings.Fajr);
+        return [
+            {name: this.getPrayerNameAr("Fajr"), time:this.getHoursMinutes(fajr)},
+            {name: this.getPrayerNameAr("Dhuhr"), time:this.getHoursMinutes(dhuhr)},
+            {name: this.getPrayerNameAr("Asr"), time:this.getHoursMinutes(asr)},
+            {name: this.getPrayerNameAr("Maghrib"), time:this.getHoursMinutes(maghrib)},
+            {name: this.getPrayerNameAr("Isha"), time:this.getHoursMinutes(isha)},
+        ]
+    }
     getNextPrayerTime(json) {
 
         const now = new Date();
@@ -230,6 +250,10 @@ class PrayerTimesService extends Service {
     // Getters
     get prayerNow() {
         return this._prayerNow;
+    }
+
+    get allPrayerTimes() {
+        return this.getAllPrayerTimes(this.state);
     }
 
     get nextPrayerName() {

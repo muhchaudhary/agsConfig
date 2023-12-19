@@ -1,0 +1,110 @@
+window#prayertime .window-content {
+    @include floating-widget;
+    @include spacing;
+
+    scrolledwindow {
+        @include scrollable;
+        min-height: $applauncher-height;
+    }
+    .prayer-times {
+        @include widget;
+        @include spacing($rec: true);
+        @include spacing(0);
+        padding: $padding;
+        
+        font-weight: bold
+    }
+    .sliders-box {
+        @include widget;
+        @include spacing($rec: true);
+        @include spacing(0);
+        padding: $padding;
+
+        button {
+            @include button($flat: true);
+            padding: $padding / 2;
+        }
+
+        scale {
+            @include slider;
+            margin-left: $spacing * -0.5;
+        }
+
+        .menu {
+            margin: $spacing 0;
+            background-color: $bg-color;
+            border: $border-width solid $popover-border-color;
+            border-radius: $radii;
+        }
+    }
+
+    .mixer-item {
+        scale { @include slider($width: 7px); }
+        image { font-size: 1.2em; }
+    }
+
+    .row {
+        @include spacing($rec: true);
+    }
+
+    .menu {
+        @include unset;
+        @include widget;
+        @include spacing($rec: true);
+        padding: $padding;
+        margin-top: $spacing;
+
+        .title {
+            @include spacing(.5);
+        }
+
+        separator {
+            margin: 0 $radii / 2;
+        }
+
+        button {
+            @include button($flat: true);
+            padding: $padding / 2;
+        }
+
+        switch {
+            @include switch;
+        }
+    }
+
+    .toggle-button {
+        @include button;
+        font-weight: bold;
+
+        .label-box {
+            @include spacing(.5);
+        }
+
+        button {
+            @include button($flat: true);
+            padding: $padding;
+
+            &:first-child {
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+
+            &:last-child {
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+        }
+
+        &.active {
+            background-color: $accent;
+
+            label, image {
+                color: $accent-fg;
+            }
+        }
+    }
+
+    .label-box {
+        font-weight: bold;
+    }
+}

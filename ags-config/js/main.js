@@ -6,6 +6,7 @@ import OSD from './osd/OSD.js';
 import Overview from './overview/Overview.js';
 import PowerMenu from './powermenu/PowerMenu.js';
 import QuickSettings from './quicksettings/QuickSettings.js';
+import PrayerTimePopup from './services/PrayerTimePopup.js';
 import ScreenCorners from './screencorner/ScreenCorners.js';
 import TopBar from './bar/TopBar.js';
 import Verification from './powermenu/Verification.js';
@@ -28,6 +29,7 @@ const windows = () => [
     Overview(),
     PowerMenu(),
     QuickSettings(),
+    PrayerTimePopup(),
     Verification(),
     About(),
 ];
@@ -39,6 +41,7 @@ export default {
     cacheNotificationActions: false,
     closeWindowDelay: {
         'quicksettings': options.transition.value,
+        'prayertime': options.transition.value,
         'dashboard': options.transition.value,
     },
 };

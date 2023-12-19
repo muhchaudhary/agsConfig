@@ -131,7 +131,7 @@ $button-radius: if($bar-style == 'floating', max(0, $radii - $bar-spacing), $rad
     }
 
     .battery-bar {
-        .font-icon { font-size: 1.15em; }
+        .font-icon { font-size: 1.15em;}
 
         @if $battery-bar-full {
             > box { padding: 0; }

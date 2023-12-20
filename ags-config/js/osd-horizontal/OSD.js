@@ -7,8 +7,7 @@ import Brightness from '../services/brightness.js';
 
 const VolumeSliderLevel = () => Widget.LevelBar({
     class_name: 'level-box',
-    connections:
-    [[
+    connections: [[
         Audio,
         self => self['value'] = `${Audio['speaker']?.volume}`,
     ]],
@@ -20,6 +19,14 @@ const BrightnessSlider = () => Widget.Slider({
     binds: [['visible', Brightness, 'screen_available'],
             ['value', Brightness, 'screen']
     ],
+});
+
+const BrightnessSliderLevel = () => Widget.LevelBar({
+    class_name: 'level-box',
+    connections: [[
+        Brightness,
+        self => self['value'] = Brightness.screen
+    ]]
 });
 
 export const OnScreenIndicator = ({ height = 200, width = 35 } = {}) => Widget.Box({
@@ -44,7 +51,7 @@ export const OnScreenIndicator = ({ height = 200, width = 35 } = {}) => Widget.B
                                 size: width,
                                 connections: [[Indicator, (icon, _v, name) => icon.icon = name || '']],
                             }),
-                            VolumeSliderLevel('speaker'),
+                            VolumeSliderLevel(),
                         ],
                     })],
                     ['display', Widget.Box({
@@ -55,7 +62,7 @@ export const OnScreenIndicator = ({ height = 200, width = 35 } = {}) => Widget.B
                                 size: width,
                                 connections: [[Indicator, (icon, _v, name) => icon.icon = name || '']],
                             }),
-                            BrightnessSlider(),
+                            BrightnessSliderLevel(),
                         ]})
                     ],
                 ],

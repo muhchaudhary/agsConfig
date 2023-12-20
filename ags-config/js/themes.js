@@ -107,7 +107,7 @@ export default [
         "battery.low": 30,
         "battery.medium": 50,
         "desktop.wallpaper.fg": "#fff",
-        "desktop.wallpaper.img": "/home/muhammad/nixOS/agsConfig/ags-config/wallpapers/illustration-landscape-digital-art-mountains-wallpaper-50f055697ff63eb3883fc7f67ba6b4b8.jpg",
+        "desktop.wallpaper.img": "../wallpapers/firewatch-red.jpg",
         "desktop.avatar": "/var/lib/AccountsService/icons/muhammad",
         "desktop.screen_corners": false,
         "desktop.clock.enable": false,

@@ -5,16 +5,14 @@ import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
 import Brightness from '../services/brightness.js';
 
-/** @param {'speaker' | 'microphone'=} type */
-const VolumeSlider = (type = 'speaker') => Widget.Slider({
-    class_name: 'sliders-box',
-    hexpand: true,
-    draw_value: false,
-    on_change: ({ value }) => Audio[type].volume = value,
-    connections: [[Audio, slider => {
-        slider.value = Audio[type]?.volume;
-    }, `${type}-changed`]],
-});
+const VolumeSliderLevel = () => Widget.LevelBar({
+    class_name: 'level-box',
+    connections:
+    [[
+        Audio,
+        self => self['value'] = `${Audio['speaker']?.volume}`,
+    ]],
+})
 
 const BrightnessSlider = () => Widget.Slider({
     draw_value: false,
@@ -22,10 +20,9 @@ const BrightnessSlider = () => Widget.Slider({
     binds: [['visible', Brightness, 'screen_available'],
             ['value', Brightness, 'screen']
     ],
-    on_change: ({ value }) => Brightness.screen = value,
 });
 
-export const OnScreenIndicator = ({ height = 300, width = 35 } = {}) => Widget.Box({
+export const OnScreenIndicator = ({ height = 200, width = 35 } = {}) => Widget.Box({
     class_name: 'indicator',
     css: 'padding: 1px;',
     child: Widget.Revealer({
@@ -47,7 +44,7 @@ export const OnScreenIndicator = ({ height = 300, width = 35 } = {}) => Widget.B
                                 size: width,
                                 connections: [[Indicator, (icon, _v, name) => icon.icon = name || '']],
                             }),
-                            VolumeSlider('speaker'),
+                            VolumeSliderLevel('speaker'),
                         ],
                     })],
                     ['display', Widget.Box({

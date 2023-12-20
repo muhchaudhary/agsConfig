@@ -2,8 +2,16 @@ window.indicator .progress {
     @include floating-widget;
     padding: $padding / 2;
     border-radius: if($radii == 0, 0, $radii + $padding / 2);
-    min-width: 300px;
-    scale { @include slider($width: 7px); }
+    scale { @include slider($width: 20px, $slider: false); }
     image { font-size: 1.2em; }
+    levelbar trough {
+        @include widget;
+        min-width: 270px;
+        min-height: 50px;
 
+        block.filled {
+            border-radius: max($radii - $border-width, 0);
+            background-image: $active-gradient;
+        }
+    }
 }

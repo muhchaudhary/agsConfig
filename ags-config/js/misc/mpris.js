@@ -73,7 +73,7 @@ export const PlayerIcon = (player, { symbolic = true, ...props } = {}) => Widget
     class_name: 'player-icon',
     tooltip_text: player.identity || '',
     connections: [[player, icon => {
-        const name = `${player.entry}${symbolic ? '-symbolic' : ''}`;
+        const name = `${player.entry}${symbolic ? '-indicator' : ''}`;
         Utils.lookUpIcon(name)
             ? icon.icon = name
             : icon.icon = icons.mpris.fallback;

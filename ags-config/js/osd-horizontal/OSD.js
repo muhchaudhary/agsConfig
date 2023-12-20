@@ -1,7 +1,5 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Indicator from '../services/onScreenIndicator.js';
-import FontIcon from '../misc/FontIcon.js';
-import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
 import Brightness from '../services/brightness.js';
 
@@ -13,13 +11,6 @@ const VolumeSliderLevel = () => Widget.LevelBar({
     ]],
 })
 
-const BrightnessSlider = () => Widget.Slider({
-    draw_value: false,
-    hexpand: true,
-    binds: [['visible', Brightness, 'screen_available'],
-            ['value', Brightness, 'screen']
-    ],
-});
 
 const BrightnessSliderLevel = () => Widget.LevelBar({
     class_name: 'level-box',
@@ -29,7 +20,23 @@ const BrightnessSliderLevel = () => Widget.LevelBar({
     ]]
 });
 
-export const OnScreenIndicator = ({ height = 200, width = 35 } = {}) => Widget.Box({
+const OverlayBox = (SliderType,width) => Widget.Overlay({
+    class_name: 'progress-overlay',
+    child: SliderType(),
+    pass_through: true,
+    overlays: [Widget.Box({
+        hpack: 'center',
+        children: [
+            Widget.Icon({
+                hpack: 'center',
+                size: width,
+                connections: [[Indicator, (icon, _v, name) => icon.icon = name || '']],
+            }),
+        ],
+    })]
+});
+
+export const OnScreenIndicator = ({ height = 200, width = 40} = {}) => Widget.Box({
     class_name: 'indicator',
     css: 'padding: 1px;',
     child: Widget.Revealer({
@@ -43,28 +50,14 @@ export const OnScreenIndicator = ({ height = 200, width = 35 } = {}) => Widget.B
                 hpack: 'center',
                 hexpand: false,
                 items: [
-                    ['speaker', Widget.Box({
-                        class_name: 'progress',
-                        children: [
-                            Widget.Icon({
-                                hpack: 'center',
-                                size: width,
-                                connections: [[Indicator, (icon, _v, name) => icon.icon = name || '']],
-                            }),
-                            VolumeSliderLevel(),
-                        ],
-                    })],
-                    ['display', Widget.Box({
-                        class_name: 'progress',
-                        children: [
-                            Widget.Icon({
-                                hpack: 'center',
-                                size: width,
-                                connections: [[Indicator, (icon, _v, name) => icon.icon = name || '']],
-                            }),
-                            BrightnessSliderLevel(),
-                        ]})
-                    ],
+                    ['speaker', 
+                        Widget.Box({ class_name: 'progress',
+                                     children:[OverlayBox(VolumeSliderLevel,width)]},
+                                     )],
+                    ['display', 
+                        Widget.Box({ class_name: 'progress',
+                                     children:[OverlayBox(BrightnessSliderLevel,width)]},
+                                     )],
                 ],
                 connections: [[Indicator, (stack, _v, name,r) => {
                     stack.shown = r;

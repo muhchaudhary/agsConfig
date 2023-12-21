@@ -17,8 +17,16 @@ const BrightnessSliderLevel = () => Widget.LevelBar({
     connections: [[
         Brightness,
         self => self['value'] = Brightness.screen
-    ]]
+    ]],
 });
+
+const KeyboardSliderLevel = () => Widget.LevelBar({
+    class_name: 'level-box',
+    connections: [[
+        Brightness,
+        self => self['value'] = Brightness.kbd / 2 
+    ]],
+})
 
 const OverlayBox = (SliderType,width) => Widget.Overlay({
     class_name: 'progress-overlay',
@@ -30,7 +38,9 @@ const OverlayBox = (SliderType,width) => Widget.Overlay({
             Widget.Icon({
                 hpack: 'center',
                 size: width,
-                connections: [[Indicator, (icon, _v, name) => icon.icon = name || '']],
+                connections: [
+                    [Indicator, (icon, _v, name) => icon.icon = name || '']
+                ],
             }),
         ],
     })]
@@ -52,16 +62,20 @@ export const OnScreenIndicator = ({ height = 200, width = 40} = {}) => Widget.Bo
                 items: [
                     ['speaker', 
                         Widget.Box({ class_name: 'progress',
-                                     children:[OverlayBox(VolumeSliderLevel,width)]},
-                                     )],
+                                     children:[OverlayBox(VolumeSliderLevel,width)]
+                                    })],
                     ['display', 
                         Widget.Box({ class_name: 'progress',
-                                     children:[OverlayBox(BrightnessSliderLevel,width)]},
-                                     )],
+                                     children:[OverlayBox(BrightnessSliderLevel,width)]
+                                    })],
+                    ['kbd', 
+                    Widget.Box({ class_name: 'progress',
+                                 children:[OverlayBox(KeyboardSliderLevel,width)]
+                                })],
                 ],
-                connections: [[Indicator, (stack, _v, name,r) => {
-                    stack.shown = r;
-                }]]
+                connections: [
+                    [Indicator, (stack, _v, _i, osdName) => { stack.shown = `${osdName}`; }]
+                ]
             }),
     }),
 });

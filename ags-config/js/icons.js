@@ -90,7 +90,7 @@ export default {
         close: 'window-close-symbolic',
         info: 'info-symbolic',
         menu: 'open-menu-symbolic',
-        link: 'external-link-symbolic',
+        link: 'link-symbolic',
         settings: 'emblem-system-symbolic',
         tick: 'object-select-symbolic',
         arrow: {

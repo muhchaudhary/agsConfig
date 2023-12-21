@@ -248,7 +248,7 @@ export default {
 
     temperature: '/sys/class/thermal/thermal_zone0/temp',
     systemFetchInterval: 5000,
-    brightnessctlKBD: 'asus::kbd_backlight',
+    brightnessctlKBD: 'tpacpi::kbd_backlight',
     substitutions: {
         icons: [
             ['transmission-gtk', 'transmission'],

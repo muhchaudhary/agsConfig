@@ -4,7 +4,6 @@ import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
 import icons from '../icons.js';
 import { getAudioTypeIcon } from '../utils.js';
 import Brightness from './brightness.js';
-
 class Indicator extends Service {
     static {
         Service.register(this, {
@@ -49,10 +48,10 @@ class Indicator extends Service {
 
     kbd() {
         // brightness is async, so lets wait a bit
-        Utils.timeout(10, () => this.popup(
-            (Brightness.kbd * 33 + 1) / 100,
+        this.popup(
+            Brightness.kbd,
             icons.brightness.keyboard,
-            'display'));
+            'kbd');
     }
 
     connect(event = 'popup', callback) {

@@ -251,12 +251,14 @@ export default {
     brightnessctlKBD: 'tpacpi::kbd_backlight',
     substitutions: {
         icons: [
+            ['code-insiders-url-handler', 'visual-studio-code-insiders'],
             ['transmission-gtk', 'transmission'],
             ['blueberry.py', 'bluetooth'],
             ['Caprine', 'facebook-messenger'],
             ['', 'preferences-desktop-display'],
         ],
         titles: [
+            ['code-insiders-url-handler', 'Visual Studio Code - Insiders'],
             ['com.github.Aylur.ags', 'AGS'],
             ['transmission-gtk', 'Transmission'],
             ['com.obsproject.Studio', 'OBS'],

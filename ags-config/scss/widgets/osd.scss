@@ -1,8 +1,8 @@
-window.indicator .progress {
+  window.indicator .progress {
     @include floating-widget;
     padding: $padding / 2;
     border-radius: if($radii == 0, 0, $radii + $padding / 2);
-    image { font-size: 1.2em; }
+    image { font-size: 1.2em;}
     levelbar trough {
         @include widget;
         min-width: 270px;
@@ -12,5 +12,6 @@ window.indicator .progress {
             border-radius: max($radii - $border-width, 0);
             background-image: $active-gradient;
         }
+//        block.empty  {background-color: transparentize($color: $fg-color, $amount: 0.6);}
     }
 }

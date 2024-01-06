@@ -18,6 +18,7 @@ export function wallpaper() {
         'swww', 'img',
         '--transition-type', 'grow',
         '--transition-pos', exec('hyprctl cursorpos').replace(' ', ''),
+        '--resize=fit',
         options.desktop.wallpaper.img.value,
     ]).catch(err => console.error(err));
 }

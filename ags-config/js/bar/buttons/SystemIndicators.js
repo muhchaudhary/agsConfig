@@ -6,24 +6,9 @@ import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
 import Network from 'resource:///com/github/Aylur/ags/service/network.js';
 import HoverRevealer from '../../misc/HoverRevealer.js';
 import PanelButton from '../PanelButton.js';
-import Asusctl from '../../services/asusctl.js';
 import Indicator from '../../services/onScreenIndicator.js';
 import icons from '../../icons.js';
 import FontIcon from '../../misc/FontIcon.js';
-
-const ProfileIndicator = () => Widget.Icon({
-    connections: [[Asusctl, icon => {
-        icon.visible = Asusctl.profile !== 'Balanced';
-        icon.icon = icons.asusctl.profile[Asusctl.profile];
-    }]],
-});
-
-const ModeIndicator = () => FontIcon({
-    connections: [[Asusctl, icon => {
-        icon.visible = Asusctl.mode !== 'Hybrid';
-        icon.icon = icons.asusctl.mode[Asusctl.mode];
-    }]],
-});
 
 const MicrophoneIndicator = () => Widget.Icon({
     connections: [[Audio, icon => {
@@ -105,8 +90,6 @@ export default () => PanelButton({
     }]],
     child: Widget.Box({
         children: [
-            Asusctl?.available && ProfileIndicator(),
-            Asusctl?.available && ModeIndicator(),
             DNDIndicator(),
             BluetoothDevicesIndicator(),
             BluetoothIndicator(),

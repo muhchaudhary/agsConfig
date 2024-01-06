@@ -50,7 +50,7 @@ export const OnScreenIndicator = ({ height = 200, width = 40} = {}) => Widget.Bo
     class_name: 'indicator',
     css: 'padding: 1px;',
     child: Widget.Revealer({
-        transition: 'slide_left',
+        transition: 'slide_down',
         connections: [[Indicator, (revealer, value, _) => {
             revealer.reveal_child = value > -1;
         }]],

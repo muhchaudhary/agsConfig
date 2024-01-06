@@ -5,12 +5,13 @@ import { Volume, Microhone, SinkSelector, AppMixer } from './widgets/Volume.js';
 import { NetworkToggle, WifiSelection } from './widgets/Network.js';
 import { BluetoothToggle, BluetoothDevices } from './widgets/Bluetooth.js';
 import { ThemeToggle, ThemeSelector } from './widgets/Theme.js';
-import { ProfileToggle, ProfileSelector } from './widgets/AsusProfile.js';
+import { ProfileToggle, ProfileSelector } from './widgets/perfProfile.js';
 import Media from './widgets/Media.js';
 import Brightness from './widgets/Brightness.js';
 import DND from './widgets/DND.js';
 import MicMute from './widgets/MicMute.js';
 import options from '../options.js';
+import PowerProfiles from 'resource:///com/github/Aylur/ags/service/powerprofiles.js';
 
 const Row = (toggles = [], menus = []) => Widget.Box({
     vertical: true,

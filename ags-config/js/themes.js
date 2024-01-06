@@ -92,7 +92,7 @@ export default [
         "hypr.wm_gaps_multiplier": 0.8,
         //"font.font": "Roboto 10",
         //"font.mono": "Mononoki Nerd Font",
-        //"font.size": 11,
+        "font.size": 11,
         "applauncher.width": 500,
         "applauncher.height": 500,
         "applauncher.icon_size": 52,

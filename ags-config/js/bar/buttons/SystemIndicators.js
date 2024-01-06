@@ -4,6 +4,7 @@ import Notifications from 'resource:///com/github/Aylur/ags/service/notification
 import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js';
 import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
 import Network from 'resource:///com/github/Aylur/ags/service/network.js';
+import PowerProfiles from 'resource:///com/github/Aylur/ags/service/powerprofiles.js';
 import HoverRevealer from '../../misc/HoverRevealer.js';
 import PanelButton from '../PanelButton.js';
 import Indicator from '../../services/onScreenIndicator.js';
@@ -58,6 +59,10 @@ const NetworkIndicator = () => Widget.Icon({
     }]],
 });
 
+const powerProfileIndicator = () => Widget.Icon({ 
+    binds: [['icon', PowerProfiles, 'icon-name']] 
+});
+
 const AudioIndicator = () => Widget.Icon({
     connections: [[Audio, icon => {
         if (!Audio.speaker)
@@ -90,6 +95,7 @@ export default () => PanelButton({
     }]],
     child: Widget.Box({
         children: [
+            powerProfileIndicator(),
             DNDIndicator(),
             BluetoothDevicesIndicator(),
             BluetoothIndicator(),

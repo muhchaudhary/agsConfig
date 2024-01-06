@@ -11,7 +11,6 @@ import Brightness from './widgets/Brightness.js';
 import DND from './widgets/DND.js';
 import MicMute from './widgets/MicMute.js';
 import options from '../options.js';
-import PowerProfiles from 'resource:///com/github/Aylur/ags/service/powerprofiles.js';
 
 const Row = (toggles = [], menus = []) => Widget.Box({
     vertical: true,

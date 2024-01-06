@@ -42,7 +42,7 @@ export const WifiSelection = () => Menu({
                 vertical: true,
                 connections:
                 [[Network, box => box.children =
-                    Network.wifi?.access_points.map(ap => Widget.Button({
+                    Network.wifi?.access_points.filter(ap => ap.ssid != "Unknown" ).map(ap => Widget.Button({
                         on_clicked: () => Utils.execAsync(`nmcli device wifi connect ${ap.bssid}`),
                         child: Widget.Box({
                             children: [
